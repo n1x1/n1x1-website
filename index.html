@@ -1136,7 +1136,15 @@ class Component extends DCLogic {
       if (tt){ tt.style.transform = `translate(-50%,-50%) translateY(${-(fh/2 + 72)}px)`; tt.style.opacity = String(1 - e*0.15); }
       if (tb){ tb.style.transform = `translate(-50%,-50%) translateY(${  fh/2 + 86 }px)`; tb.style.opacity = String(1 - e*0.15); }
       if (bg) bg.style.transform = `translateY(${p*-60}px) scale(${1+p*0.12})`;
-      this.playing = p > 0.02 && p < 0.99;
+      // Kartice/fotografije vozi isti scroll napredak koji vozi rast okvira —
+      // ranije je sat kucao u realnom vremenu nezavisno od scroll-a, pa bi se
+      // desinhronizovao čim korisnik zastane (okvir jedne veličine, sadržaj
+      // kartice iz drugog trenutka). Sad je jedan izvor istine za oboje.
+      // Kartice kreću tek posle zoom-in faze (prvih 30% skrola je isto vreme
+      // za rast okvira) — inače bi prva kartica proletela pre nego ram naraste.
+      const cardP = Math.max(0, (p - 0.30) / 0.70);
+      this.clock = cardP * this.loopLen;
+      this.applyShot(this.shotIndexAt(this.mediaTime()));
     };
 
     const setupSeq = () => {
@@ -1174,9 +1182,6 @@ class Component extends DCLogic {
         try { this.animDash(d); this.animPipe(d); this.animMatch(d); this.animCmd(d); }
         catch (err) { if (!this._animErr){ this._animErr = 1; console.error("anim", err); } }
       }
-      if (!this.videoEl && this.playing) this.clock = (this.clock + dt) % this.loopLen;
-      try { this.applyShot(this.shotIndexAt(this.mediaTime())); }
-      catch(e){ if(!this._shotErr){ this._shotErr = 1; console.error("shot @frame", this._frames, e); } }
       const c = R.cursorRef.current, rg = R.ringRef.current;
       this.pos.x = lerp(this.pos.x, this.mouse.x, .55); this.pos.y = lerp(this.pos.y, this.mouse.y, .55);
       this.ring.x = lerp(this.ring.x, this.mouse.x, .18); this.ring.y = lerp(this.ring.y, this.mouse.y, .18);
