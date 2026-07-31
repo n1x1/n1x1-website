@@ -1,0 +1,89 @@
+/* ============================================================
+   FONTS — Apple Design System
+
+   SF Pro is Apple's PROPRIETARY system font and cannot be
+   redistributed. The strategy (per Apple's own guidance):
+
+   1. On macOS / iOS / Safari, `system-ui` and `-apple-system`
+      in the font stack resolve to the REAL SF Pro automatically.
+   2. Everywhere else, Inter (Google Fonts, variable) is the
+      closest open-source substitute. We load weights 300/400/
+      600/700 to match Apple's ladder (500 deliberately absent).
+
+   ⚠️  SUBSTITUTION FLAG: Inter is a stand-in, not SF Pro.
+       If you have licensed SF Pro .woff2 binaries, drop them in
+       assets/fonts/ and replace the @import below with @font-face
+       rules pointing at them.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* ------------------------------------------------------------
+   SF Pro @font-face — local() only.
+   These resolve to the REAL SF Pro already installed on Apple
+   platforms (macOS / iOS / iPadOS). On every other OS the
+   local() lookups all fail, the @font-face contributes nothing,
+   and the family stack falls through to Inter. No binaries are
+   bundled or substituted — the token keeps pointing at SF Pro.
+   If you license SF Pro .woff2 files, add url() sources here.
+   ------------------------------------------------------------ */
+
+/* SF Pro Display — headlines (≥19px). Weights 300/400/600/700. */
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Display Light"), local("SFProDisplay-Light"), local("SFProDisplay-Regular"), local("SF Pro Display");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Display Regular"), local("SFProDisplay-Regular"), local("SF Pro Display");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Display Semibold"), local("SFProDisplay-Semibold"), local("SF Pro Display");
+}
+@font-face {
+  font-family: "SF Pro Display";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Display Bold"), local("SFProDisplay-Bold"), local("SF Pro Display");
+}
+
+/* SF Pro Text — body & UI. Weights 300/400/600/700. */
+@font-face {
+  font-family: "SF Pro Text";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Text Light"), local("SFProText-Light"), local("SFProText-Regular"), local("SF Pro Text");
+}
+@font-face {
+  font-family: "SF Pro Text";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Text Regular"), local("SFProText-Regular"), local("SF Pro Text");
+}
+@font-face {
+  font-family: "SF Pro Text";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Text Semibold"), local("SFProText-Semibold"), local("SF Pro Text");
+}
+@font-face {
+  font-family: "SF Pro Text";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: local("SF Pro Text Bold"), local("SFProText-Bold"), local("SF Pro Text");
+}

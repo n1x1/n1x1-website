@@ -1,0 +1,105 @@
+/* ============================================================
+   BASE — Apple Design System
+   Minimal element defaults + typographic helper classes built
+   from the tokens. Optional for consumers, but every spec card
+   and UI kit relies on these helpers.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-leading);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--color-body);
+  background: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Type role helpers --- */
+.t-hero-display {
+  font-family: var(--font-display);
+  font-size: var(--type-hero-display-size);
+  font-weight: var(--type-hero-display-weight);
+  line-height: var(--type-hero-display-leading);
+  letter-spacing: var(--type-hero-display-tracking);
+}
+.t-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--type-display-lg-size);
+  font-weight: var(--type-display-lg-weight);
+  line-height: var(--type-display-lg-leading);
+  letter-spacing: var(--type-display-lg-tracking);
+}
+.t-display-md {
+  font-family: var(--font-display);
+  font-size: var(--type-display-md-size);
+  font-weight: var(--type-display-md-weight);
+  line-height: var(--type-display-md-leading);
+  letter-spacing: var(--type-display-md-tracking);
+}
+.t-lead {
+  font-family: var(--font-text);
+  font-size: var(--type-lead-size);
+  font-weight: var(--type-lead-weight);
+  line-height: var(--type-lead-leading);
+  letter-spacing: var(--type-lead-tracking);
+}
+.t-lead-airy {
+  font-family: var(--font-text);
+  font-size: var(--type-lead-airy-size);
+  font-weight: var(--type-lead-airy-weight);
+  line-height: var(--type-lead-airy-leading);
+  letter-spacing: var(--type-lead-airy-tracking);
+}
+.t-tagline {
+  font-family: var(--font-text);
+  font-size: var(--type-tagline-size);
+  font-weight: var(--type-tagline-weight);
+  line-height: var(--type-tagline-leading);
+  letter-spacing: var(--type-tagline-tracking);
+}
+.t-body-strong {
+  font-family: var(--font-text);
+  font-size: var(--type-body-strong-size);
+  font-weight: var(--type-body-strong-weight);
+  line-height: var(--type-body-strong-leading);
+  letter-spacing: var(--type-body-strong-tracking);
+}
+.t-body {
+  font-family: var(--font-text);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-leading);
+  letter-spacing: var(--type-body-tracking);
+}
+.t-caption {
+  font-family: var(--font-text);
+  font-size: var(--type-caption-size);
+  font-weight: var(--type-caption-weight);
+  line-height: var(--type-caption-leading);
+  letter-spacing: var(--type-caption-tracking);
+}
+.t-caption-strong {
+  font-family: var(--font-text);
+  font-size: var(--type-caption-strong-size);
+  font-weight: var(--type-caption-strong-weight);
+  line-height: var(--type-caption-strong-leading);
+  letter-spacing: var(--type-caption-strong-tracking);
+}
+.t-fine-print {
+  font-family: var(--font-text);
+  font-size: var(--type-fine-print-size);
+  font-weight: var(--type-fine-print-weight);
+  line-height: var(--type-fine-print-leading);
+  letter-spacing: var(--type-fine-print-tracking);
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+* { box-sizing: border-box; }
