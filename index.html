@@ -1156,6 +1156,10 @@ class Component extends DCLogic {
           onUpdate: self => applyProgress(self.progress),
           onLeaveBack: () => applyProgress(0)
         });
+        // ScrollTrigger.create samo registruje callback-ove — ne farba početno
+        // stanje. Bez ovoga naslovi ("Šest prostora."/"Šest modula.") ostaju u
+        // sirovom inline top:50% preklopu dok korisnik prvi put ne skroluje.
+        applyProgress(0);
       } else {
         const onScroll = () => {
           const r = sec.getBoundingClientRect();
