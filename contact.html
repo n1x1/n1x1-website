@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="sr">
 <head>
 <meta charset="utf-8">
+<title>Kontakt — Fortica</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
@@ -41,16 +42,18 @@
 
 <section style="background:var(--color-canvas);padding:96px 24px 120px;">
   <div style="max-width:640px;margin:0 auto;">
-    <h1 style="font-family:var(--font-display);font-size:clamp(32px,5vw,44px);font-weight:600;line-height:1.15;margin:0 0 12px;text-align:center;">Talk to us.</h1>
-    <p style="font-size:18px;color:var(--color-ink-muted-80);text-align:center;margin:0 0 40px;">Ask about a demo, pricing for your team, or anything else — an agent will get back to you.</p>
-    <form onsubmit="event.preventDefault();" style="display:flex;flex-direction:column;gap:20px;">
-      <div><label>Name</label><input class="fc-input" type="text" placeholder="Your name"></div>
-      <div><label>Agency</label><input class="fc-input" type="text" placeholder="Agency name"></div>
-      <div><label>Email</label><input class="fc-input" type="email" placeholder="you@agency.rs"></div>
-      <div><label>What are you looking for?</label>
-        <textarea class="fc-input" rows="4" placeholder="Tell us a bit about your team and what you'd like to see"></textarea>
+    <h1 style="font-family:var(--font-display);font-size:clamp(32px,5vw,44px);font-weight:600;line-height:1.15;margin:0 0 12px;text-align:center;">Javi nam se.</h1>
+    <p style="font-size:18px;color:var(--color-ink-muted-80);text-align:center;margin:0 0 12px;">Pitaj za demo, cenu za tvoj tim ili bilo šta drugo — javljamo se u najkraćem roku.</p>
+    <p style="font-size:15px;color:var(--color-ink-muted-80);text-align:center;margin:0 0 40px;">Ili piši direktno na <a href="mailto:info@fortica.rs" style="color:var(--color-ink);font-weight:600;text-decoration:none;">info@fortica.rs</a>.</p>
+    <form action="/kontakt.php" method="post" style="display:flex;flex-direction:column;gap:20px;">
+      <div><label>Ime i prezime</label><input class="fc-input" type="text" name="name" required maxlength="200" placeholder="Tvoje ime"></div>
+      <div><label>Agencija</label><input class="fc-input" type="text" name="agency" maxlength="200" placeholder="Naziv agencije"></div>
+      <div><label>E-pošta</label><input class="fc-input" type="email" name="email" required maxlength="254" placeholder="ti@agencija.rs"></div>
+      <div><label>Šta te zanima?</label>
+        <textarea class="fc-input" name="message" rows="4" required maxlength="5000" placeholder="Napiši ukratko o svom timu i šta bi želeo da vidiš"></textarea>
       </div>
-      <x-import component-from-global-scope="AppleDesignSystem_2bff7e.Button" variant="primary" style="width:100%;justify-content:center;padding:14px;font-size:17px;" hint-size="auto,48px">Request a demo</x-import>
+      <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Ne popunjavaj ovo polje<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <x-import component-from-global-scope="AppleDesignSystem_2bff7e.Button" variant="primary" style="width:100%;justify-content:center;padding:14px;font-size:17px;" hint-size="auto,48px">Pošalji poruku</x-import>
     </form>
   </div>
 </section>
@@ -68,5 +71,27 @@
 </footer>
 
 </x-dc>
+<script>
+  // support.js ponovo iscrtava <x-dc> posle DOMContentLoaded, pa se poruka
+  // ubacuje tek na window.load i to ispred forme koja je vec hidrirana.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var params = new URLSearchParams(location.search);
+      var kind = params.has('sent') ? 'sent' : (params.has('error') ? 'error' : null);
+      if (!kind) return;
+      var form = document.querySelector('form[action="/kontakt.php"]');
+      if (!form || document.getElementById('fc-status')) return;
+      var box = document.createElement('div');
+      box.id = 'fc-status';
+      box.style.cssText = 'margin:0 0 24px;padding:14px 16px;font-size:15px;line-height:1.45;'
+        + 'background:var(--color-canvas-parchment);border-left:3px solid '
+        + (kind === 'sent' ? '#1F9D55' : '#C53030') + ';';
+      box.textContent = kind === 'sent'
+        ? 'Hvala — poruka je poslata. Javljamo se u najkraćem roku.'
+        : 'Poruka nije poslata. Proveri ime, e-poštu i tekst poruke, ili piši direktno na info@fortica.rs.';
+      form.parentNode.insertBefore(box, form);
+    }, 0);
+  });
+</script>
 </body>
 </html>
