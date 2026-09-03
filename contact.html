@@ -2,96 +2,186 @@
 <html lang="sr">
 <head>
 <meta charset="utf-8">
-<title>Kontakt — Fortica</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>Kontakt — Fortica</title>
+<meta name="description" content="Javi se Fortici — pitaj za demo, cenu za tvoj tim ili bilo šta drugo o CRM-u za agencije za nekretnine.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05080F; --panel:#0B1120; --field:#0D1526;
+    --line:#26304C; --ink:#F2F3F8; --muted:#8A96B0;
+    --accent:#4B54FF; --accent-hi:#5C63FF;
+    --display:Archivo,sans-serif; --mono:'IBM Plex Mono',monospace; --text:Inter,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);
+       min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent-hi);text-decoration:none}
+  a:hover{color:var(--ink)}
+  ::selection{background:var(--accent);color:#fff}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;
+       padding:24px 56px;position:sticky;top:0;z-index:10;
+       background:rgba(5,8,15,0.85);backdrop-filter:blur(10px);
+       border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{display:flex;align-items:baseline;gap:8px}
+  .brand b{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.02em;color:var(--ink)}
+  .brand span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+  .menu{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+  .menu a,.menu span.sep{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .menu a{color:var(--muted)}
+  .menu a:hover,.menu a[aria-current]{color:var(--ink)}
+  .menu .sep{width:1px;height:16px;background:rgba(255,255,255,0.12)}
+
+  main{flex:1}
+  .hero{padding:96px 56px 56px;max-width:760px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+           color:var(--accent-hi);text-transform:uppercase;margin-bottom:20px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,64px);
+     line-height:1.02;letter-spacing:-.01em;margin:0 0 24px;color:var(--ink)}
+  .lede{font-size:18px;line-height:1.6;color:var(--muted);margin:0 0 12px;max-width:560px}
+  .lede-sm{font-size:16px;color:var(--muted);margin:0}
+
+  .form-wrap{padding:0 56px 120px}
+  form{width:100%;max-width:560px;display:flex;flex-direction:column;gap:22px;
+       background:var(--panel);border:1px solid rgba(255,255,255,0.08);
+       border-radius:8px;padding:40px}
+  form label{display:flex;flex-direction:column;gap:8px}
+  form label > span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+                    color:var(--muted);text-transform:uppercase}
+  input,textarea{background:var(--field);border:1px solid rgba(255,255,255,0.1);
+                 border-radius:6px;padding:13px 14px;font-size:15px;color:var(--ink);
+                 outline:none;font-family:var(--text);width:100%}
+  textarea{resize:vertical;min-height:120px}
+  input:focus,textarea:focus{border-color:var(--accent)}
+  input::placeholder,textarea::placeholder{color:#5B6178}
+  .trap{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+  button{margin-top:8px;background:var(--accent);color:#fff;border:none;border-radius:6px;
+         padding:14px 24px;font-size:15px;font-weight:600;font-family:var(--text);
+         cursor:pointer;align-self:flex-start}
+  button:hover{background:var(--accent-hi)}
+
+  .note{max-width:560px;margin:0 0 24px;padding:14px 16px;border-radius:6px;
+        background:var(--panel);border:1px solid rgba(255,255,255,0.08);
+        border-left:3px solid var(--accent);font-size:15px;line-height:1.45;color:var(--ink)}
+  .note.ok{border-left-color:#1F9D55}
+  .note.bad{border-left-color:#C53030}
+
+  footer{border-top:1px solid rgba(255,255,255,0.06);padding:56px 56px 40px;
+         display:flex;flex-direction:column;gap:40px}
+  .cols{display:flex;gap:80px;flex-wrap:wrap}
+  .col{display:flex;flex-direction:column;gap:14px}
+  .col b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+         color:#6A7188;text-transform:uppercase;font-weight:500}
+  .col a{font-size:14px;color:var(--muted)}
+  .col a:hover{color:var(--ink)}
+  .base{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+        font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+        color:#5B6178;text-transform:uppercase}
+
+  @media (max-width:720px){
+    .nav{padding:18px 20px;gap:16px}
+    .menu{gap:18px}
+    .hero{padding:56px 20px 32px}
+    .form-wrap{padding:0 20px 72px}
+    form{padding:24px}
+    footer{padding:40px 20px 32px}
+    .cols{gap:36px}
+  }
+</style>
 </head>
 <body>
-<x-dc>
-<helmet>
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/fonts.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/colors.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/typography.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/spacing.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/shape.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/tokens/base.css">
-  <link rel="stylesheet" href="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/styles.css">
-  <script src="_ds/apple-design-system-2bff7e75-03e5-45ac-97a3-93ae04511560/_ds_bundle.js"></script>
-  <style>
-    body{margin:0;background:var(--color-canvas);color:var(--color-ink);font-family:var(--font-text);}
-    a{color:var(--color-primary);} a:hover{color:var(--color-primary-focus);}
-    .fc-input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:8px;border:1px solid var(--color-hairline);font-size:16px;font-family:var(--font-text);color:var(--color-ink);}
-    .fc-input:focus{outline:2px solid var(--color-primary-focus);outline-offset:1px;}
-    label{font-size:14px;font-weight:600;color:var(--color-ink);display:block;margin-bottom:6px;}
-  </style>
-</helmet>
 
-<nav style="position:sticky;top:0;z-index:50;height:52px;display:flex;align-items:center;padding:0 32px;background:rgba(10,10,12,0.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);">
-  <a href="index.html" style="color:#fff;text-decoration:none;font-family:var(--font-display);font-size:16px;font-weight:600;margin-right:40px;">Fortica</a>
-  <div style="display:flex;gap:28px;flex:1;">
-    <a href="features.html" style="color:rgba(255,255,255,0.86);text-decoration:none;font-size:13px;">Features</a>
-    <a href="pricing.html" style="color:rgba(255,255,255,0.86);text-decoration:none;font-size:13px;">Pricing</a>
-    <a href="security.html" style="color:rgba(255,255,255,0.86);text-decoration:none;font-size:13px;">Security</a>
-    <a href="about.html" style="color:rgba(255,255,255,0.86);text-decoration:none;font-size:13px;">About</a>
-    <a href="contact.html" style="color:#fff;text-decoration:none;font-size:13px;">Contact</a>
-  </div>
-  <div style="display:flex;align-items:center;gap:18px;">
-    <div style="display:flex;gap:4px;font-size:12px;color:rgba(255,255,255,0.5);"><span style="color:#fff;">EN</span><span>/</span><span>SR</span></div>
-  </div>
-</nav>
+<header class="nav">
+  <a class="brand" href="/"><b>FORTICA</b><span>CRM</span></a>
+  <nav class="menu">
+    <a href="/#proizvod">Proizvod</a>
+    <a href="/#moduli">Moduli</a>
+    <a href="/#bezbednost">Arhitektura</a>
+    <a href="/#kontakt">Cena</a>
+    <span class="sep"></span>
+    <a href="/contact.html" aria-current="page">Kontakt</a>
+  </nav>
+</header>
 
-<section style="background:var(--color-canvas);padding:96px 24px 120px;">
-  <div style="max-width:640px;margin:0 auto;">
-    <h1 style="font-family:var(--font-display);font-size:clamp(32px,5vw,44px);font-weight:600;line-height:1.15;margin:0 0 12px;text-align:center;">Javi nam se.</h1>
-    <p style="font-size:18px;color:var(--color-ink-muted-80);text-align:center;margin:0 0 12px;">Pitaj za demo, cenu za tvoj tim ili bilo šta drugo — javljamo se u najkraćem roku.</p>
-    <p style="font-size:15px;color:var(--color-ink-muted-80);text-align:center;margin:0 0 40px;">Ili piši direktno na <a href="mailto:info@fortica.rs" style="color:var(--color-ink);font-weight:600;text-decoration:none;">info@fortica.rs</a>.</p>
-    <form action="/kontakt.php" method="post" style="display:flex;flex-direction:column;gap:20px;">
-      <div><label>Ime i prezime</label><input class="fc-input" type="text" name="name" required maxlength="200" placeholder="Tvoje ime"></div>
-      <div><label>Agencija</label><input class="fc-input" type="text" name="agency" maxlength="200" placeholder="Naziv agencije"></div>
-      <div><label>E-pošta</label><input class="fc-input" type="email" name="email" required maxlength="254" placeholder="ti@agencija.rs"></div>
-      <div><label>Šta te zanima?</label>
-        <textarea class="fc-input" name="message" rows="4" required maxlength="5000" placeholder="Napiši ukratko o svom timu i šta bi želeo da vidiš"></textarea>
-      </div>
-      <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Ne popunjavaj ovo polje<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      <x-import component-from-global-scope="AppleDesignSystem_2bff7e.Button" variant="primary" style="width:100%;justify-content:center;padding:14px;font-size:17px;" hint-size="auto,48px">Pošalji poruku</x-import>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Kontakt</div>
+    <h1>Javi nam se.</h1>
+    <p class="lede">Pitaj za demo, cenu za tvoj tim ili bilo šta drugo — javljamo se u najkraćem roku.</p>
+    <p class="lede-sm">Ili piši direktno na <a href="mailto:info@fortica.rs">info@fortica.rs</a>.</p>
+  </section>
+
+  <section class="form-wrap">
+    <div id="fc-status" class="note" hidden></div>
+    <form action="/kontakt.php" method="post">
+      <label>
+        <span>Ime i prezime</span>
+        <input type="text" name="name" required maxlength="200" placeholder="Tvoje ime">
+      </label>
+      <label>
+        <span>Agencija</span>
+        <input type="text" name="agency" maxlength="200" placeholder="Naziv agencije">
+      </label>
+      <label>
+        <span>E-pošta</span>
+        <input type="email" name="email" required maxlength="254" placeholder="ti@agencija.rs">
+      </label>
+      <label>
+        <span>Šta te zanima?</span>
+        <textarea name="message" rows="5" required maxlength="5000" placeholder="Napiši ukratko o svom timu i šta bi želeo da vidiš"></textarea>
+      </label>
+      <label class="trap" aria-hidden="true">
+        Ne popunjavaj ovo polje
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+      <button type="submit">Pošalji poruku</button>
     </form>
-  </div>
-</section>
+  </section>
+</main>
 
-<footer style="background:var(--color-canvas-parchment);color:var(--color-ink-muted-80);padding:56px 24px 24px;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-bottom:1px solid var(--color-hairline);padding-bottom:32px;">
-      <div><div style="font-size:14px;font-weight:600;color:var(--color-ink);margin-bottom:8px;">Product</div><div style="display:flex;flex-direction:column;gap:8px;"><a href="features.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">Features</a><a href="pricing.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">Pricing</a><a href="security.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">Security</a></div></div>
-      <div><div style="font-size:14px;font-weight:600;color:var(--color-ink);margin-bottom:8px;">Company</div><div style="display:flex;flex-direction:column;gap:8px;"><a href="about.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">About</a><a href="contact.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">Contact</a></div></div>
-      <div><div style="font-size:14px;font-weight:600;color:var(--color-ink);margin-bottom:8px;">Legal</div><div style="display:flex;flex-direction:column;gap:8px;"><a href="legal-privacy.html" style="font-size:13px;color:var(--color-ink-muted-80);text-decoration:none;">Privacy Policy</a></div></div>
-      <div><div style="font-size:14px;font-weight:600;color:var(--color-ink);margin-bottom:8px;">Language</div><div style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--color-ink);">EN</span><span>·</span><span>SR</span></div></div>
+<footer>
+  <div class="cols">
+    <div class="col">
+      <b>Proizvod</b>
+      <a href="/#proizvod">Pregled</a>
+      <a href="/#moduli">Moduli</a>
+      <a href="/#bezbednost">Arhitektura</a>
     </div>
-    <div style="padding-top:16px;font-size:12px;color:var(--color-ink-muted-48);">© 2026 Fortica. Built for agencies across Serbia and the region.</div>
+    <div class="col">
+      <b>Fortica</b>
+      <a href="/#kontakt">Cena</a>
+      <a href="/contact.html">Kontakt</a>
+    </div>
+    <div class="col">
+      <b>Kontakt</b>
+      <a href="mailto:info@fortica.rs">info@fortica.rs</a>
+    </div>
+  </div>
+  <div class="base">
+    <span>Fortica CRM</span>
+    <span>Beograd · Srbija i region</span>
+    <span>© 2026 Fortica</span>
   </div>
 </footer>
 
-</x-dc>
 <script>
-  // support.js ponovo iscrtava <x-dc> posle DOMContentLoaded, pa se poruka
-  // ubacuje tek na window.load i to ispred forme koja je vec hidrirana.
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      var params = new URLSearchParams(location.search);
-      var kind = params.has('sent') ? 'sent' : (params.has('error') ? 'error' : null);
-      if (!kind) return;
-      var form = document.querySelector('form[action="/kontakt.php"]');
-      if (!form || document.getElementById('fc-status')) return;
-      var box = document.createElement('div');
-      box.id = 'fc-status';
-      box.style.cssText = 'margin:0 0 24px;padding:14px 16px;font-size:15px;line-height:1.45;'
-        + 'background:var(--color-canvas-parchment);border-left:3px solid '
-        + (kind === 'sent' ? '#1F9D55' : '#C53030') + ';';
-      box.textContent = kind === 'sent'
-        ? 'Hvala — poruka je poslata. Javljamo se u najkraćem roku.'
-        : 'Poruka nije poslata. Proveri ime, e-poštu i tekst poruke, ili piši direktno na info@fortica.rs.';
-      form.parentNode.insertBefore(box, form);
-    }, 0);
-  });
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var kind = p.has('sent') ? 'ok' : (p.has('error') ? 'bad' : null);
+    if (!kind) return;
+    var box = document.getElementById('fc-status');
+    box.className = 'note ' + kind;
+    box.textContent = kind === 'ok'
+      ? 'Hvala — poruka je poslata. Javljamo se u najkraćem roku.'
+      : 'Poruka nije poslata. Proveri ime, e-poštu i tekst poruke, ili piši direktno na info@fortica.rs.';
+    box.hidden = false;
+  })();
 </script>
+
 </body>
 </html>
